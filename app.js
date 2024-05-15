@@ -3,4 +3,6 @@ const app = express()
 
 
 
-app.listen(3000)
+app.listen(3000, () => {
+    
+})
