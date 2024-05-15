@@ -5,15 +5,15 @@ class FileManager {
 
     }
 
-    readFile(path, filename) {
+    static readFile(path, filename) {
         try {
             const data = fs.readFileSync(`${path}/${filename}`, 'utf8')
-            return data
+            return JSON.parse(data)
         } catch (error) {
-            throw 'Erro ao encontrar ler ou arquivo não encontrado.'
+            return false
         }
     }
-    writeFile(path, filename) {
+    static writeFile(path, filename) {
 
     }
 }
