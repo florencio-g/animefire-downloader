@@ -1,4 +1,5 @@
 const fs = require('fs');
+const axios = require('axios');
 
 class FileManager {
     constructor() {
@@ -16,6 +17,40 @@ class FileManager {
     static writeFile(path, filename) {
 
     }
+    static downloadFile(url, path) {
+        return new Promise((resolve, reject) => {
+            const writer = fs.createWriteStream(path);
+            let receivedBytes = 0;
+
+            axios({
+                method: 'get',
+                url: url,
+                responseType: 'stream'
+            }).then(response => {
+                const totalBytes = response.headers['content-length'];
+
+                response.data.on('data', (chunk) => {
+                    receivedBytes += chunk.length;
+                    let percentComplete = ((receivedBytes / totalBytes) * 100).toFixed(2);
+                    console.log(`Baixado ${receivedBytes / 1024} de ${totalBytes / 1024} bytes (${percentComplete}%)`);
+                });
+
+                response.data.pipe(writer);
+
+                writer.on('finish', resolve);
+                writer.on('error', reject);
+            });
+        });
+
+    }
+
+    static createFolderIfNotExist(dir) {
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+
+    }
+
 }
 
 
