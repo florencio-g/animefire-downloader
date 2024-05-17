@@ -32,7 +32,7 @@ class FileManager {
                 response.data.on('data', (chunk) => {
                     receivedBytes += chunk.length;
                     let percentComplete = ((receivedBytes / totalBytes) * 100).toFixed(2);
-                    console.log(`Baixado ${receivedBytes / 1024} de ${totalBytes / 1024} bytes (${percentComplete}%)`);
+                    console.log(`Baixado ${(receivedBytes / 1024 / 1024).toFixed(2)} de ${(totalBytes / 1024 / 1024).toFixed(2)} Mb (${percentComplete}%)`);
                 });
 
                 response.data.pipe(writer);
