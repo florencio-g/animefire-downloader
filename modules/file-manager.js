@@ -14,10 +14,14 @@ class FileManager {
             return false
         }
     }
-    static writeFile(path, filename) {
-
+    static writeFile(path, filename, data) {
+        try {
+            fs.writeFileSync(`${path}/${filename}`, data)
+        } catch (error) {
+            return false
+        }
     }
-    static downloadFile(url, path) {
+    static downloadFile(url, path, name) {
         return new Promise((resolve, reject) => {
             const writer = fs.createWriteStream(path);
             let receivedBytes = 0;
@@ -32,7 +36,7 @@ class FileManager {
                 response.data.on('data', (chunk) => {
                     receivedBytes += chunk.length;
                     let percentComplete = ((receivedBytes / totalBytes) * 100).toFixed(2);
-                    console.log(`Baixado ${(receivedBytes / 1024 / 1024).toFixed(2)} de ${(totalBytes / 1024 / 1024).toFixed(2)} Mb (${percentComplete}%)`);
+                    console.log(`Baixado ${name ?? '[anime]'} ${(receivedBytes / 1024 / 1024).toFixed(2)}/${(totalBytes / 1024 / 1024).toFixed(2)} Mb (${percentComplete}%)`);
                 });
 
                 response.data.pipe(writer);
