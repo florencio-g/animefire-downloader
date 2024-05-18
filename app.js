@@ -17,15 +17,15 @@ async function main() {
                 .then(() => {
                     console.log('Download concluído!')
                     downloadingInfo.start += 1
-                    FileManager.writeFile(__dirname, 'downloading-info.json', downloadingInfo)
+                    FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(downloadingInfo))
                 })
-                .catch(async () => {
+                .catch(() => {
                     console.clear()
                     console.log(`Não foi possível baixar o EP ${index} de ${downloadingInfo.name}.`)
                     downloadingInfo.start += 1
-                    await FileManager.writeFile(__dirname, 'downloading-info.json', downloadingInfo)
-
-                    main()
+                    downloadingInfo.noDownloaded.push(index)
+                    downloadingInfo.noDownloaded.includes(index) ? downloadingInfo : downloadingInfo.noDownloaded.push(index)
+                    FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(downloadingInfo))
                 });
         }
     }
