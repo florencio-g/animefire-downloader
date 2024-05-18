@@ -3,8 +3,7 @@ const FileManager = require('./modules/file-manager');
 const app = express()
 
 
-
-app.listen(3000, async () => {
+async function main() {
     let downloadingInfo = FileManager.readFile(__dirname, 'downloading-info.json')
     if (downloadingInfo) {
         FileManager.createFolderIfNotExist(`${__dirname}/downloads/${downloadingInfo.name}`)
@@ -15,11 +14,25 @@ app.listen(3000, async () => {
             var name = downloadingInfo.name + ' EP ' + index + ' -'
 
             await FileManager.downloadFile(url, path, name)
-                .then(() => { console.log('Download concluído!') 
+                .then(() => {
+                    console.log('Download concluído!')
                     downloadingInfo.start += 1
-                    FileManager.writeFile(__dirname, 'downloading-info.json')
+                    FileManager.writeFile(__dirname, 'downloading-info.json', downloadingInfo)
                 })
-                .catch(console.error);
+                .catch(async () => {
+                    console.clear()
+                    console.log(`Não foi possível baixar o EP ${index} de ${downloadingInfo.name}.`)
+                    downloadingInfo.start += 1
+                    await FileManager.writeFile(__dirname, 'downloading-info.json', downloadingInfo)
+
+                    main()
+                });
         }
+    }
+}
+
+app.listen(3000, (error) => {
+    if(!error) {
+        main()
     }
 })

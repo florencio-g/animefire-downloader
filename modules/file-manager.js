@@ -16,7 +16,7 @@ class FileManager {
     }
     static writeFile(path, filename, data) {
         try {
-            fs.writeFileSync(`${path}/${filename}`, data)
+            fs.writeFileSync(`${path}/${filename}`, data, 'utf8')
         } catch (error) {
             return false
         }
@@ -30,24 +30,25 @@ class FileManager {
                 method: 'get',
                 url: url,
                 responseType: 'stream'
-            }).then(response => {
-                const totalBytes = response.headers['content-length'];
+            })
+                .then(response => {
+                    const totalBytes = response.headers['content-length'];
 
-                response.data.on('data', (chunk) => {
-                    receivedBytes += chunk.length;
-                    let percentComplete = ((receivedBytes / totalBytes) * 100).toFixed(2);
-                    console.log(`Baixado ${name ?? '[anime]'} ${(receivedBytes / 1024 / 1024).toFixed(2)}/${(totalBytes / 1024 / 1024).toFixed(2)} Mb (${percentComplete}%)`);
-                });
+                    response.data.on('data', (chunk) => {
+                        receivedBytes += chunk.length;
+                        let percentComplete = ((receivedBytes / totalBytes) * 100).toFixed(2);
+                        console.log(`Baixado ${name ?? '[anime]'} ${(receivedBytes / 1024 / 1024).toFixed(2)}/${(totalBytes / 1024 / 1024).toFixed(2)} Mb (${percentComplete}%)`);
+                    });
 
-                response.data.pipe(writer);
+                    response.data.pipe(writer);
 
-                writer.on('finish', resolve);
-                writer.on('error', reject);
-            });
+                    writer.on('finish', resolve);
+                    writer.on('error', reject);
+                })
+                .catch(() => reject());
         });
 
     }
-
     static createFolderIfNotExist(dir) {
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
