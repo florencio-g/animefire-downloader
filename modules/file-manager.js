@@ -23,7 +23,6 @@ class FileManager {
     }
     static downloadFile(url, path, name) {
         return new Promise((resolve, reject) => {
-            const writer = fs.createWriteStream(path);
             let receivedBytes = 0;
 
             axios({
@@ -33,6 +32,10 @@ class FileManager {
             })
                 .then(response => {
                     const totalBytes = response.headers['content-length'];
+                    if (totalBytes == 0)
+                        reject()
+                    const writer = fs.createWriteStream(path);
+
 
                     response.data.on('data', (chunk) => {
                         receivedBytes += chunk.length;
