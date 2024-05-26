@@ -4,45 +4,49 @@ const app = express()
 
 
 async function main() {
-    let downloadingInfo = FileManager.readFile(__dirname, 'downloading-info.json')
-    if (downloadingInfo) {
-        FileManager.createFolderIfNotExist(`${__dirname}/downloads/${downloadingInfo.name}`)
+    let downloadFile = FileManager.readFile(__dirname, 'downloading-info.json')
+    if (downloadFile) {
+        let downloadList = downloadFile.list
 
-        for (let index = downloadingInfo.start; index <= downloadingInfo.end; index++) {
-            var url = downloadQuality => `https://s2.lightspeedst.net/s2/mp4/${downloadingInfo.slug}/${downloadQuality}/${index}.mp4`
-            var path = downloadQuality => `./downloads/${downloadingInfo.name}/${downloadingInfo.name} - EP ${index < 10 ? '0' + index : index} (${downloadQuality}).mp4`
-            var name = downloadingInfo.name + ' EP ' + index + ' -'
+        for (const anime of downloadList) {
+            FileManager.createFolderIfNotExist(`${__dirname}/downloads/${anime.name}`)
+
+            for (let index = anime.start; index <= anime.end; index++) {
+                var url = downloadQuality => `${anime.url}/${downloadQuality}/${index}.mp4`
+                var path = downloadQuality => `./downloads/${anime.name}/${anime.name} - EP ${index < 10 ? '0' + index : index} (${downloadQuality}).mp4`
+                var name = anime.name + ' EP ' + index + ' -'
 
 
-            await FileManager.downloadFile(url('fhd'), path('F-HD'), name)
-                .then(() => {
-                    console.log('Download concluído!')
-                    downloadingInfo.start += 1
-                    FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(downloadingInfo))
-                })
-                .catch(async () => {
-                     await FileManager.downloadFile(url('hd'), path('HD'), name)
-                        .then(() => {
-                            console.log('Download concluído!')
-                            downloadingInfo.start += 1
-                            FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(downloadingInfo))
-                        })
-                        .catch(async () => {
-                             await FileManager.downloadFile(url('sd'), path('SD'), name)
-                                .then(() => {
-                                    console.log('Download concluído!')
-                                    downloadingInfo.start += 1
-                                    FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(downloadingInfo))
-                                })
-                                .catch(() => {
-                                    console.clear()
-                                    console.log(`Não foi possível baixar o EP ${index} de ${downloadingInfo.name}.`)
-                                    downloadingInfo.start += 1
-                                    downloadingInfo.noDownloaded.includes(index) ? downloadingInfo : downloadingInfo.noDownloaded.push(index)
-                                    FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(downloadingInfo))
-                                })
-                        })
-                });
+                await FileManager.downloadFile(url('fhd'), path('F-HD'), name)
+                    .then(() => {
+                        console.log('Download concluído!')
+                        anime.start += 1
+                        FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(anime))
+                    })
+                    .catch(async () => {
+                        await FileManager.downloadFile(url('hd'), path('HD'), name)
+                            .then(() => {
+                                console.log('Download concluído!')
+                                anime.start += 1
+                                FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(anime))
+                            })
+                            .catch(async () => {
+                                await FileManager.downloadFile(url('sd'), path('SD'), name)
+                                    .then(() => {
+                                        console.log('Download concluído!')
+                                        anime.start += 1
+                                        FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(anime))
+                                    })
+                                    .catch(() => {
+                                        console.clear()
+                                        console.log(`Não foi possível baixar o EP ${index} de ${anime.name}.`)
+                                        anime.start += 1
+                                        anime.noDownloaded.includes(index) ? anime : anime.noDownloaded.push(index)
+                                        FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(anime))
+                                    })
+                            })
+                    });
+            }
         }
     }
 }
