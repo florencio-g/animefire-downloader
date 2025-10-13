@@ -1,6 +1,6 @@
 # Animefire Downloader
 
-> Deseja baixar o seu anime completo ou um intervalo de episódios desejados? Tens aqui a sua solução!<br>O AnimefireDownloader faz por sí o download completo do seu anime podendo acompanhar todo o percurso.
+> Na ideia de baixar vários episódios de anime ou vários animes de forma contínua sem acesso direto a uma API, utilizei uma brecha do site animefire.plus para baixar animes automaticamente.
 
 ## Future Features
 * Implementação de Interface gráfica(front-end)
