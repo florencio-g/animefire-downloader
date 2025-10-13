@@ -1,18 +1,18 @@
 {
-    "list": [
-        {
-            "name": "Tensei shitara Dainana Ouji Datta node",
-            "url": "https://s2.lightspeedst.net/s2/mp4/tensei-shitara-dainana-ouji-datta-node-kimama-ni-majutsu-wo-kiwamemasu",
-            "start": 6,
-            "end": 8,
-            "noDownloaded": []
-        },
-        {
-            "name": "Mahouka Koukou No Rettousei",
-            "url": "https://s2.lightspeedst.net/s2/mp4/tensei-shitara-dainana-ouji-datta-node-kimama-ni-majutsu-wo-kiwamemasu",
-            "start": 1,
-            "end": 26,
-            "noDownloaded": []
-        }
-    ]
+  "list": [
+    {
+      "name": "Tensei shitara Dainana Ouji Datta node",
+      "url": "https://s2.lightspeedst.net/s2/mp4/tensei-shitara-dainana-ouji-datta-node-kimama-ni-majutsu-wo-kiwamemasu",
+      "start": 9,
+      "end": 8,
+      "noDownloaded": [6, 7, 8]
+    },
+    {
+      "name": "Mahouka Koukou No Rettousei",
+      "url": "https://s2.lightspeedst.net/s2/mp4/tensei-shitara-dainana-ouji-datta-node-kimama-ni-majutsu-wo-kiwamemasu",
+      "start": 6,
+      "end": 26,
+      "noDownloaded": [1, 2, 3, 4, 5]
+    }
+  ]
 }

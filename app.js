@@ -2,8 +2,17 @@ const express = require('express')
 const FileManager = require('./modules/file-manager');
 const app = express()
 
+// Settings
+app.set('view engine', 'ejs')
+app.set('views', './views')
 
-async function main() {
+// Middlewares
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
+
+async function iniciarDownload() {
     let downloadFile = FileManager.readFile(__dirname, 'downloading-info.json')
     if (downloadFile) {
 
@@ -51,6 +60,6 @@ async function baixarEpisodio(anime, index) {
 
 app.listen(3000, async (error) => {
     if (!error) {
-        main()
+        console.log("Servidor iniciado na porta 3000")
     }
 })
