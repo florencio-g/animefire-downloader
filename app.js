@@ -12,8 +12,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 
-async function iniciarDownload() {
-    let downloadFile = FileManager.readFile(__dirname, 'downloading-info.json')
+async function startDownload() {
+    let downloadFile = FileManager.readFile(__dirname, 'download-log.json')
     if (downloadFile) {
 
         console.log(downloadFile.list);
@@ -23,8 +23,7 @@ async function iniciarDownload() {
 
             for (let index = anime.start; index <= anime.end; index++) {
                 await baixarEpisodio(anime, index);
-                FileManager.writeFile(__dirname, 'downloading-info.json', JSON.stringify(downloadFile));
-
+                FileManager.writeFile(__dirname, 'download-log.json', JSON.stringify(downloadFile));
             }
         })
     }
