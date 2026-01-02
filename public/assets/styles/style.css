@@ -15,16 +15,32 @@
   color: #00c853 !important;
 }
 .text-blue {
-    color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
 }
 .text-gray {
   color: var(--gray) !important;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.justify-between {
+    justify-content: space-between;
+}   
+
+html,
 body {
+  height: 100%;
+}
+
+body {
+  position: relative;
   background-color: var(--background-color);
   color: var(--font-color);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .content {
@@ -33,7 +49,12 @@ body {
   padding: 20px;
 }
 .navbar-container {
+  position: sticky;
+  top: 0;
   border-bottom: 1px solid var(--gray-accent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 100;
 }
 .navbar {
   display: flex;
@@ -50,6 +71,11 @@ body {
   color: var(--primary-color);
   font-weight: bold;
   font-size: 24px;
+}
+
+.navbar .logo .logo-img {
+  height: 32px;
+  margin-right: 10px;
 }
 
 .navbar .icon {
@@ -76,13 +102,13 @@ body {
   padding: 30px 0;
   display: flex;
   flex-direction: column;
+  gap: 30px;
 }
 
 .search-container {
   width: 100%;
   display: flex;
   flex-direction: row;
-  margin-bottom: 20px;
   gap: 20px;
 }
 
@@ -138,7 +164,6 @@ body {
   display: flex;
   flex-direction: row;
   gap: 30px;
-  margin-top: 10px;
   font-size: 14px;
   color: var(--gray);
 }
@@ -172,4 +197,106 @@ body {
   font-size: 24px;
   font-weight: bold;
   color: var(--font-color);
+}
+.filter-options {
+  width: max-content;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  padding: 10px;
+  position: relative;
+  border-radius: var(--border-radius);
+  background: var(--secondary-color-accent);
+}
+
+.filter-opt {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  padding: 0px;
+  margin: 0;
+  color: var(--gray);
+}
+.filter-opt input[type="radio"] {
+  appearance: none;
+  display: none;
+}
+.filter-opt label {
+  width: max-content;
+  height: max-content;
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+.filter-opt input[type="radio"]:checked + label {
+  background-color: var(--background-color);
+  color: var(--font-color);
+}
+.anime-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.anime-card {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 15px;
+  border: 1px solid var(--gray-accent);
+  border-radius: var(--border-radius);
+  background-color: var(--secondary-color-accent);
+}
+
+.anime-card .anime-thumbnail img {
+  width: 150px;
+  height: 150px;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+}
+.anime-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.anime-info .anime-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.anime-stats {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.anime-stat {
+    font-size: 14px;
+    color: var(--gray);
+}
+.anime-stat.size {
+    margin-top: auto;
+}
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: var(--gray-accent);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    margin: 10px 0;
+    margin-bottom: 15px;
+}
+.progress-bar .progress {
+    height: 100%;
+    background-color: var(--primary-color);
+    width: 65%;
+    transition: width 0.3s ease;
 }

@@ -1,11 +1,6 @@
-<% 
-const stats = [ 
-{ label: 'Total', value: '4'}, 
-{ label: 'Baixando', value: '1'}, 
-{ label: 'Concluídos', value: '1' }, 
-{ label: 'Na fila', value: '1' }
-]; 
-%>
+<% const stats = [ { label: 'Total', value: '4'}, { label: 'Baixando', value:
+'1'}, { label: 'Concluídos', value: '1' }, { label: 'Na fila', value: '1' } ];
+const animes = [ {}, {}, {}, {} ]; %>
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -27,8 +22,12 @@ const stats = [
     <div class="navbar-container">
       <nav class="navbar content">
         <div class="logo">
-          <i class="bi bi-download icon"></i>
-          <h1 class="title">AnimeFire Downloader</h1>
+          <img
+            src="/assets/images/logo.webp"
+            alt="AnimeFire Logo"
+            class="logo-img"
+          />
+          <h1 class="title">| Downloader</h1>
         </div>
         <button class="btn btn-primary">+ Adicionar Download</button>
       </nav>
@@ -49,11 +48,57 @@ const stats = [
         <div class="stat-card card">
           <div class="stat-info">
             <h2 class="stat-label"><%= stat.label %></h2>
-            <span class="stat-value <%= idx === 1 ? 'text-blue' : idx === 2 ? 'text-green' : idx === 3 ? 'text-gray' : '' %>"><%= stat.value %></span> 
+            <span
+              class="stat-value <%= idx === 1 ? 'text-blue' : idx === 2 ? 'text-green' : idx === 3 ? 'text-gray' : '' %>"
+              ><%= stat.value %></span
+            >
           </div>
         </div>
         <% } %>
       </div>
+      <ul class="filter-options">
+        <li class="filter-opt">
+          <input type="radio" name="opt" id="opt-1" checked /><label for="opt-1"
+            >Todos (4)</label
+          >
+        </li>
+        <li class="filter-opt">
+          <input type="radio" name="opt" id="opt-2" /><label for="opt-2"
+            >Ativos (1)</label
+          >
+        </li>
+        <li class="filter-opt">
+          <input type="radio" name="opt" id="opt-3" /><label for="opt-3"
+            >Concluídos (1)</label
+          >
+        </li>
+      </ul>
+      <ul class="anime-list">
+        <% for(anime of animes) { %>
+        <li class="card anime-card">
+          <div class="anime-thumbnail">
+            <img
+              src="https://media.printler.com/media/photo/193484-2.jpg?rmode=crop&width=725&height=1024"
+              alt="Thumbnail do Anime"
+            />
+          </div>
+          <div class="anime-info">
+            <div class="row justify-between">
+              <h3 class="anime-title">Attack on titan</h3>
+                <span class="download-status">Completed</span>
+            </div>
+            <div class="anime-stats">
+              <span class="anime-stat episode">Episódio 12</span>
+              <span class="anime-stat size">1080p • 380 MB</span>
+              <div class="progress-bar">
+                <div class="progress"></div>
+              </div>
+              <span class="anime-stat percent">65%</span>
+            </div>
+          </div>
+        </li>
+        <% } %>
+      </ul>
     </main>
   </body>
 </html>
