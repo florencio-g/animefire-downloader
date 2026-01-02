@@ -1,3 +1,12 @@
+<% 
+const stats = [ 
+{ label: 'Total', value: '4'}, 
+{ label: 'Baixando', value: '1'}, 
+{ label: 'Concluídos', value: '1' }, 
+{ label: 'Na fila', value: '1' }
+]; 
+%>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
@@ -5,20 +14,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AnimeFire | Downloader</title>
     <link rel="stylesheet" href="/assets/styles/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/bootstrap-icons.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/bootstrap-icons.svg"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
-    <nav class="navbar">
-      <div class="logo">
-        <i class="bi bi-download icon"></i>
-        <h1 class="title">AnimeFire | Downloader</h1>
+    <div class="navbar-container">
+      <nav class="navbar content">
+        <div class="logo">
+          <i class="bi bi-download icon"></i>
+          <h1 class="title">AnimeFire Downloader</h1>
+        </div>
+        <button class="btn btn-primary">+ Adicionar Download</button>
+      </nav>
+    </div>
+    <main class="main-content content">
+      <div class="search-container">
+        <div class="search-field">
+          <i class="bi bi-search icon"></i>
+          <input class="input" type="text" placeholder="Buscar anime..." />
+        </div>
+        <button class="btn btn-borded filter">
+          <i class="bi bi-filter icon"></i>
+          <span class="text">Filtro</span>
+        </button>
       </div>
-      <button class="btn btn-primary">+ Adicionar Download</button>
-    </nav>
-    <main class="main-content">
-      <div class="search-container"></div>
-      <div class="stats-container"></div>
+      <div class="stats-container">
+        <% for (const [idx, stat] of stats.entries()) { %>
+        <div class="stat-card card">
+          <div class="stat-info">
+            <h2 class="stat-label"><%= stat.label %></h2>
+            <span class="stat-value <%= idx === 1 ? 'text-blue' : idx === 2 ? 'text-green' : idx === 3 ? 'text-gray' : '' %>"><%= stat.value %></span> 
+          </div>
+        </div>
+        <% } %>
+      </div>
     </main>
   </body>
 </html>
