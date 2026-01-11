@@ -22,13 +22,13 @@
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .justify-between {
-    justify-content: space-between;
-}   
+  justify-content: space-between;
+}
 
 html,
 body {
@@ -36,15 +36,22 @@ body {
 }
 
 body {
-  position: relative;
+  top: 0;
+  display: flex;
+  flex-direction: column;
   background-color: var(--background-color);
   color: var(--font-color);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  overflow-y: scroll;
+  height: 100dvh;
+  max-height: 100dvh;
+  box-sizing: border-box;
 }
 
 .content {
   max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -267,36 +274,37 @@ body {
 }
 
 .anime-info .anime-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
 }
 .anime-stats {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .anime-stat {
-    font-size: 14px;
-    color: var(--gray);
+  font-size: 14px;
+  color: var(--gray);
 }
 .anime-stat.size {
-    margin-top: auto;
+  margin-top: auto;
 }
 .progress-bar {
-    width: 100%;
-    height: 10px;
-    background-color: var(--gray-accent);
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    margin: 10px 0;
-    margin-bottom: 15px;
+  width: 100%;
+  height: 10px;
+  background-color: var(--gray-accent);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin: 10px 0;
+  margin-bottom: 15px;
 }
 .progress-bar .progress {
-    height: 100%;
-    background-color: var(--primary-color);
-    width: 65%;
-    transition: width 0.3s ease;
+  height: 100%;
+  background-color: var(--primary-color);
+  width: 65%;
+  border-radius: var(--border-radius);
+  transition: width 0.3s ease;
 }
